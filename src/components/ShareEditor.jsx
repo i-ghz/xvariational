@@ -40,32 +40,38 @@ export function ShareEditor({ userPoints, valueAt1B, valueAt5B }) {
     const handleCopy = async () => {
         if (exportRef.current) {
             try {
-                await new Promise(resolve => setTimeout(resolve, 100))
+                // Safari and modern Chrome support passing a Promise to ClipboardItem
+                // This is crucial because html2canvas is async, and Safari demands the ClipboardItem
+                // be created during the user interaction event loop.
+                const item = new ClipboardItem({
+                    'image/png': new Promise(async (resolve) => {
+                        // Tiny delay to ensure rendering if needed, though usually redundant with offscreen
+                        await new Promise(r => setTimeout(r, 50))
 
-                const canvas = await html2canvas(exportRef.current, {
-                    scale: 2,
-                    backgroundColor: null,
-                    useCORS: true,
-                    logging: false,
-                    width: 800,
-                    height: 418,
-                    windowWidth: 800,
-                    windowHeight: 418,
-                })
-                canvas.toBlob(blob => {
-                    if (blob) {
-                        navigator.clipboard.write([
-                            new ClipboardItem({
-                                'image/png': blob
-                            })
-                        ]).then(() => {
-                            setCopied(true)
-                            setTimeout(() => setCopied(false), 2000)
+                        const canvas = await html2canvas(exportRef.current, {
+                            scale: 2,
+                            backgroundColor: null,
+                            useCORS: true,
+                            logging: false,
+                            width: 800,
+                            height: 418,
+                            windowWidth: 800,
+                            windowHeight: 418,
                         })
-                    }
+
+                        canvas.toBlob((blob) => {
+                            resolve(blob)
+                        })
+                    })
                 })
+
+                await navigator.clipboard.write([item])
+                setCopied(true)
+                setTimeout(() => setCopied(false), 2000)
+
             } catch (err) {
                 console.error('Failed to copy', err)
+                alert('Copy failed. Please try "Download" instead.')
             }
         }
     }

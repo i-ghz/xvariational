@@ -233,7 +233,7 @@ gVar`
                                 )}
                             >
                                 {copied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
-                                {copied ? "Copied!" : "Copy"}
+                                {copied ? "Copied!" : "Copy Image"}
                             </button>
 
                             <button

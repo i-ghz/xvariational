@@ -66,7 +66,7 @@ export function ShareEditor({ userPoints, valueAt1B, valueAt5B }) {
 Points: ${formattedPoints}
 Est. Value: ${formattedValue}
 
-Check yours at: xvariational.xyz @Variational
+Check yours at: xvariational.xyz @variational_io
 
 gVar`
 

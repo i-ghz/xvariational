@@ -1,9 +1,6 @@
 import { forwardRef } from 'react'
 import { Rocket } from 'lucide-react'
 import { clsx } from 'clsx'
-import pepeRage from '../assets/pepe-rage.png'
-import pepeFlex from '../assets/pepe-flex.png'
-import pepeZen from '../assets/pepe-zen.png'
 import logoNew from '../assets/logo-new.png'
 
 export const ShareCard = forwardRef(({ points, valueAt1B, valueAt5B, theme = 'dark', graphic = 'rocket', isPreview = false }, ref) => {
@@ -58,23 +55,6 @@ export const ShareCard = forwardRef(({ points, valueAt1B, valueAt5B, theme = 'da
                     {/* Engine glow */}
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-10 h-20 bg-orange-500/80 blur-xl rounded-full -z-10"></div>
                 </div>
-            )
-        }
-
-        const pepeMap = {
-            'pepe-rage': pepeRage,
-            'pepe-flex': pepeFlex,
-            'pepe-zen': pepeZen
-        }
-
-        const imgSrc = pepeMap[graphic]
-        if (imgSrc) {
-            return (
-                <img
-                    src={imgSrc}
-                    alt="Character"
-                    className="w-40 h-40 object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
-                />
             )
         }
 

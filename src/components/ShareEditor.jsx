@@ -3,25 +3,31 @@ import { Download, Check, Rocket, Image as ImageIcon, Copy, CheckCircle2 } from 
 import { ShareCard } from './ShareCard'
 import html2canvas from 'html2canvas'
 import { clsx } from 'clsx'
-import pepeRage from '../assets/pepe-rage.png'
-import pepeFlex from '../assets/pepe-flex.png'
-import pepeZen from '../assets/pepe-zen.png'
 
 export function ShareEditor({ userPoints, valueAt1B, valueAt5B }) {
     const [theme, setTheme] = useState('dark') // 'dark', 'blue', 'white'
-    const [graphic, setGraphic] = useState('rocket') // 'rocket', 'pepe-rage', 'pepe-flex', 'pepe-zen', 'none'
+    const [graphic, setGraphic] = useState('rocket') // 'rocket', 'none'
     const [scale, setScale] = useState(0.5)
     const [copied, setCopied] = useState(false)
 
-    const cardRef = useRef(null)
+    // cardRef is now for the hidden export version
+    const exportRef = useRef(null)
     const containerRef = useRef(null)
 
     const handleDownload = async () => {
-        if (cardRef.current) {
-            const canvas = await html2canvas(cardRef.current, {
-                scale: 2,
+        if (exportRef.current) {
+            // Wait a tick to ensure font rendering or any state updates
+            await new Promise(resolve => setTimeout(resolve, 100))
+
+            const canvas = await html2canvas(exportRef.current, {
+                scale: 2, // 2x for retina quality
                 backgroundColor: null,
                 useCORS: true,
+                logging: false,
+                width: 800,
+                height: 418,
+                windowWidth: 800,
+                windowHeight: 418,
             })
             const image = canvas.toDataURL("image/png")
             const link = document.createElement('a')
@@ -32,12 +38,19 @@ export function ShareEditor({ userPoints, valueAt1B, valueAt5B }) {
     }
 
     const handleCopy = async () => {
-        if (cardRef.current) {
+        if (exportRef.current) {
             try {
-                const canvas = await html2canvas(cardRef.current, {
+                await new Promise(resolve => setTimeout(resolve, 100))
+
+                const canvas = await html2canvas(exportRef.current, {
                     scale: 2,
                     backgroundColor: null,
                     useCORS: true,
+                    logging: false,
+                    width: 800,
+                    height: 418,
+                    windowWidth: 800,
+                    windowHeight: 418,
                 })
                 canvas.toBlob(blob => {
                     if (blob) {
@@ -122,13 +135,26 @@ gVar`
                         className="origin-center shadow-2xl rounded-xl transition-transform duration-200 ease-out will-change-transform"
                     >
                         <ShareCard
-                            ref={cardRef}
                             points={userPoints}
                             valueAt1B={valueAt1B}
                             valueAt5B={valueAt5B}
                             theme={theme}
                             graphic={graphic}
                             isPreview={true}
+                        />
+                    </div>
+                </div>
+
+                {/* HIDDEN EXPORT AREA - This is what actually gets captured */}
+                <div className="absolute top-0 left-0 overflow-hidden w-0 h-0 opacity-0 pointer-events-none">
+                    <div ref={exportRef}>
+                        <ShareCard
+                            points={userPoints}
+                            valueAt1B={valueAt1B}
+                            valueAt5B={valueAt5B}
+                            theme={theme}
+                            graphic={graphic}
+                            isPreview={false}
                         />
                     </div>
                 </div>
@@ -168,7 +194,7 @@ gVar`
                         {/* Graphics */}
                         <div>
                             <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 block">Decoration</label>
-                            <div className="grid grid-cols-3 gap-2">
+                            <div className="grid grid-cols-2 gap-2">
                                 <button
                                     onClick={() => setGraphic('none')}
                                     className={clsx("h-16 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all", graphic === 'none' ? "bg-var-cyan/10 border-var-cyan text-var-cyan" : "bg-slate-800 border-slate-700 text-slate-400 hover:bg-slate-750")}
@@ -182,27 +208,6 @@ gVar`
                                 >
                                     <Rocket size={20} />
                                     <span className="text-[10px] font-bold">Rocket</span>
-                                </button>
-                                <button
-                                    onClick={() => setGraphic('pepe-rage')}
-                                    className={clsx("h-16 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all overflow-hidden relative", graphic === 'pepe-rage' ? "border-var-cyan ring-1 ring-var-cyan" : "bg-slate-800 border-slate-700 hover:bg-slate-750")}
-                                >
-                                    <img src={pepeRage} className="w-10 h-10 object-contain" />
-                                    <span className="text-[10px] font-bold text-slate-300">Rage</span>
-                                </button>
-                                <button
-                                    onClick={() => setGraphic('pepe-flex')}
-                                    className={clsx("h-16 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all overflow-hidden relative", graphic === 'pepe-flex' ? "border-var-cyan ring-1 ring-var-cyan" : "bg-slate-800 border-slate-700 hover:bg-slate-750")}
-                                >
-                                    <img src={pepeFlex} className="w-10 h-10 object-contain" />
-                                    <span className="text-[10px] font-bold text-slate-300">Flex</span>
-                                </button>
-                                <button
-                                    onClick={() => setGraphic('pepe-zen')}
-                                    className={clsx("h-16 rounded-lg border flex flex-col items-center justify-center gap-1 transition-all overflow-hidden relative", graphic === 'pepe-zen' ? "border-var-cyan ring-1 ring-var-cyan" : "bg-slate-800 border-slate-700 hover:bg-slate-750")}
-                                >
-                                    <img src={pepeZen} className="w-10 h-10 object-contain" />
-                                    <span className="text-[10px] font-bold text-slate-300">Zen</span>
                                 </button>
                             </div>
                         </div>

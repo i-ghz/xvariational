@@ -1,10 +1,10 @@
 import { forwardRef } from 'react'
-import { VariationalLogov2 } from './VariationalLogo'
 import { Rocket } from 'lucide-react'
 import { clsx } from 'clsx'
 import pepeRage from '../assets/pepe-rage.png'
 import pepeFlex from '../assets/pepe-flex.png'
 import pepeZen from '../assets/pepe-zen.png'
+import logoNew from '../assets/logo-new.png'
 
 export const ShareCard = forwardRef(({ points, valueAt1B, valueAt5B, theme = 'dark', graphic = 'rocket', isPreview = false }, ref) => {
     const formatted1B = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(valueAt1B)
@@ -119,7 +119,7 @@ export const ShareCard = forwardRef(({ points, valueAt1B, valueAt5B, theme = 'da
             <div className={clsx("relative z-20 flex justify-between items-start border-b pb-6", currentTheme.border)}>
                 <div>
                     <div className="flex items-center gap-3 mb-1">
-                        <VariationalLogov2 className={clsx("w-10 h-10", currentTheme.logoColor)} />
+                        <img src={logoNew} className="w-10 h-10 object-contain" alt="Logo" />
                         <h1 className="text-3xl font-bold tracking-tight">
                             Variational
                         </h1>

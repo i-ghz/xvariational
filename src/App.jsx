@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { Calculator } from 'lucide-react'
 import { ScenarioCard } from './components/ScenarioCard'
 import { ShareEditor } from './components/ShareEditor'
-import { VariationalLogov2 } from './components/VariationalLogo'
 import { FundingAd } from './components/FundingAd'
+import logoNew from './assets/logo-new.png'
 
 // Constants
 const TOTAL_POINTS = 9_150_000
@@ -41,7 +41,7 @@ function App() {
         </div>
 
         <div className="flex items-center justify-center gap-4 mb-4">
-          <VariationalLogov2 className="w-16 h-16 text-white" />
+          <img src={logoNew} className="w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]" alt="xVariational Logo" />
         </div>
 
         <h1 className="text-5xl md:text-6xl font-bold text-white tracking-tighter mb-4">

@@ -12,7 +12,7 @@ export default {
                 'surface-highlight': '#151e32',
                 primary: '#3B82F6', // Standard blue backup
                 'var-blue': '#4F46E5', // Indigo-ish
-                'var-cyan': '#00F0FF', // Electric Cyan
+                'var-cyan': '#3B82F6', // Pepe Blue
                 'var-dark': '#020617',
             },
             fontFamily: {

@@ -57,6 +57,23 @@ export function ShareEditor({ userPoints, valueAt1B, valueAt5B }) {
         }
     }
 
+    const handleTweet = () => {
+        const formattedPoints = new Intl.NumberFormat('en-US').format(userPoints)
+        const formattedValue = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(valueAt5B)
+
+        const text = `I'm estimating my Variational Airdrop! 🪂
+
+Points: ${formattedPoints}
+Est. Value: ${formattedValue}
+
+Check yours at: xvariational.xyz @Variational
+
+gVar`
+
+        const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`
+        window.open(url, '_blank')
+    }
+
     // Auto-scale logic
     useEffect(() => {
         const calculateScale = () => {
@@ -193,25 +210,41 @@ export function ShareEditor({ userPoints, valueAt1B, valueAt5B }) {
 
                     <div className="mt-8 pt-6 border-t border-slate-700 space-y-3">
                         <button
-                            onClick={handleCopy}
+                            onClick={handleTweet}
                             disabled={!isVisible}
-                            className={clsx("w-full py-3 rounded-xl flex items-center justify-center gap-2 transition-all font-bold",
-                                copied ? "bg-green-500 text-white" : "bg-slate-800 text-white hover:bg-slate-700",
+                            className={clsx("w-full py-3 rounded-xl flex items-center justify-center gap-2 transition-all font-bold mb-2",
+                                "bg-black text-white border border-slate-700 hover:bg-slate-900 shadow-lg",
                                 !isVisible && "opacity-50 cursor-not-allowed"
                             )}
                         >
-                            {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
-                            {copied ? "Copied!" : "Copy Image"}
+                            <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                            </svg>
+                            Post on X
                         </button>
 
-                        <button
-                            onClick={handleDownload}
-                            disabled={!isVisible}
-                            className="w-full bg-var-cyan hover:bg-cyan-400 text-black font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]"
-                        >
-                            <Download size={18} />
-                            Download PNG
-                        </button>
+                        <div className="grid grid-cols-2 gap-3">
+                            <button
+                                onClick={handleCopy}
+                                disabled={!isVisible}
+                                className={clsx("w-full py-3 rounded-xl flex items-center justify-center gap-2 transition-all font-bold font-sans text-sm",
+                                    copied ? "bg-green-500 text-white" : "bg-slate-800 text-white hover:bg-slate-700",
+                                    !isVisible && "opacity-50 cursor-not-allowed"
+                                )}
+                            >
+                                {copied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
+                                {copied ? "Copied!" : "Copy"}
+                            </button>
+
+                            <button
+                                onClick={handleDownload}
+                                disabled={!isVisible}
+                                className="w-full bg-var-cyan hover:bg-blue-400 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] text-sm"
+                            >
+                                <Download size={16} />
+                                Download
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

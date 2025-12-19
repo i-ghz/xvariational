@@ -3,6 +3,7 @@ import { Calculator } from 'lucide-react'
 import { ScenarioCard } from './components/ScenarioCard'
 import { ShareEditor } from './components/ShareEditor'
 import { FundingAd } from './components/FundingAd'
+import { Analytics } from "@vercel/analytics/react"
 import logoNew from './assets/logo-new.png'
 
 // Constants
@@ -116,6 +117,8 @@ function App() {
 
       {/* Cross Promotion Ad */}
       <FundingAd />
+
+      <Analytics />
 
     </div>
   )

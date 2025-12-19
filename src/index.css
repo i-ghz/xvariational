@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-background text-slate-300 antialiased;
+  background-image:
+    linear-gradient(to right, #1e293b 1px, transparent 1px),
+    linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center top;
+}
+
+/* Overlay to fade out the grid at edges/bottom for that "spotlight" feel */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center top, transparent 0%, #040812 80%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Ensure background stays fixed behind content */
+html {
+  background-color: #040812;
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  }
+
+  .border-glow {
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  }
+}

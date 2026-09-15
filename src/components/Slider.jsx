@@ -1,13 +1,13 @@
 const STEPS = 1000
 
-export function Slider({ label, value, onChange, min, max, log = false, step, consensus, format, formatEdge }) {
+export function Slider({ label, value, onChange, min, max, log = false, step, probably, format, formatEdge }) {
   const toPos = (v) => (log ? Math.log(v / min) / Math.log(max / min) : (v - min) / (max - min))
   const toVal = (p) => {
     const raw = log ? min * Math.pow(max / min, p) : min + p * (max - min)
     return step ? Math.round(raw / step) * step : raw
   }
   const pos = Math.min(1, Math.max(0, toPos(value)))
-  const band = consensus ? [toPos(consensus[0]) * 100, toPos(consensus[1]) * 100] : null
+  const band = probably ? [toPos(probably[0]) * 100, toPos(probably[1]) * 100] : null
   const edge = formatEdge || format
 
   return (
@@ -36,7 +36,7 @@ export function Slider({ label, value, onChange, min, max, log = false, step, co
 
       <div className="flex justify-between mt-1.5 text-[11px] text-dim num">
         <span>{edge(min)}</span>
-        {consensus && <span className="text-up">consensus {edge(consensus[0])}–{edge(consensus[1])}</span>}
+        {probably && <span className="text-up">probably {edge(probably[0])}–{edge(probably[1])}</span>}
         <span>{edge(max)}</span>
       </div>
     </div>

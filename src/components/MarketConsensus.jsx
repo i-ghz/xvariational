@@ -12,7 +12,7 @@ export function MarketConsensus({ market, userPoints, share, totalPoints, onPick
     <section className="card overflow-hidden">
       <div className="p-5 md:p-6 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="label mb-2">Polymarket · consensus</div>
+          <div className="label mb-2">Polymarket · probably</div>
           <h2 className="text-[17px] md:text-[19px] font-semibold tracking-[-0.02em]">Variational FDV above ___ one day after launch?</h2>
           <p className="text-[12.5px] text-muted mt-1 num">
             {fmtUsd(volume)} traded · resolves by Dec 31, 2027 ·{' '}

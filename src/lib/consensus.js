@@ -1,11 +1,12 @@
 // Community assumptions. Nothing here is confirmed by Variational.
+// `probably` is the range people keep landing on — a band, not a promise.
 export const ASSUMPTIONS = {
-  fdv: { min: 100e6, max: 5e9, default: 1e9, consensus: [500e6, 2e9], log: true },
-  share: { min: 0.01, max: 0.6, default: 0.275, consensus: [0.25, 0.3], step: 0.005 },
-  points: { min: 1e6, max: 30e6, default: 9.3e6, consensus: [9e6, 9.4e6], step: 50_000 },
+  fdv: { min: 100e6, max: 5e9, default: 600e6, probably: [500e6, 2e9], log: true },
+  share: { min: 0.01, max: 0.6, default: 0.25, probably: [0.25, 0.3], step: 0.005 },
+  points: { min: 1e6, max: 30e6, default: 9.3e6, probably: [9e6, 9.4e6], step: 50_000 },
 }
 
-export const SCENARIOS = [100e6, 300e6, 500e6, 1e9, 2e9, 5e9]
+export const SCENARIOS = [100e6, 300e6, 600e6, 1e9, 2e9, 5e9]
 
 // Snapshot of the Polymarket event "Variational FDV above ___ one day after launch?"
 // Used when the live Gamma API is unreachable (it is geo-blocked in several countries).

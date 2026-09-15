@@ -58,7 +58,7 @@ export function PointsCalculator({ sim }) {
           <Slider
             label="FDV at TGE" value={fdv} onChange={setFdv}
             min={ASSUMPTIONS.fdv.min} max={ASSUMPTIONS.fdv.max} log step={10e6}
-            consensus={ASSUMPTIONS.fdv.consensus}
+            probably={ASSUMPTIONS.fdv.probably}
             format={(v) => fmtUsdCompact(v, 2)} formatEdge={(v) => fmtUsdCompact(v, 1)}
           />
 
@@ -95,12 +95,12 @@ export function PointsCalculator({ sim }) {
                 <Slider
                   label="Share of supply to points" value={share} onChange={setShare}
                   min={ASSUMPTIONS.share.min} max={ASSUMPTIONS.share.max} step={ASSUMPTIONS.share.step}
-                  consensus={ASSUMPTIONS.share.consensus} format={(v) => fmtPct(v, 1)}
+                  probably={ASSUMPTIONS.share.probably} format={(v) => fmtPct(v, 1)}
                 />
                 <Slider
                   label="Total points at TGE" value={totalPoints} onChange={setTotalPoints}
                   min={ASSUMPTIONS.points.min} max={ASSUMPTIONS.points.max} step={ASSUMPTIONS.points.step}
-                  consensus={ASSUMPTIONS.points.consensus}
+                  probably={ASSUMPTIONS.points.probably}
                   format={(v) => fmtCompact(v, { decimals: 2 })} formatEdge={(v) => fmtCompact(v, { decimals: 1 })}
                 />
               </div>

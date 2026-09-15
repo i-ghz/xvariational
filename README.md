@@ -1,16 +1,17 @@
-# React + Vite
+# xVariational.xyz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Airdrop simulator for [Variational](https://variational.io) points.
 
-Currently, two official plugins are available:
+- **Simulator** — sliders for FDV at TGE, share of supply to points and total points at TGE, with community consensus bands. Outputs value per point, your payout, your share and the airdrop pool.
+- **Live protocol stats** — 24h volume, cumulative volume, open interest, TVL and market count from the public Omni API (`/metadata/stats`), refreshed every minute.
+- **Polymarket consensus** — odds from "Variational FDV above ___ one day after launch?". Fetched live from the Gamma API when reachable, otherwise a dated snapshot in `src/lib/consensus.js`. Includes a probability-weighted expected FDV.
+- **Share card** — dark/light PNG export, copy to clipboard, post on X.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Develop
 
-## React Compiler
+```
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Nothing about a Variational airdrop has been announced. All numbers are community assumptions or prediction-market prices. Not financial advice.

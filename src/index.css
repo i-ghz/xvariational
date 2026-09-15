@@ -2,39 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-background text-slate-300 antialiased;
-  background-image:
-    linear-gradient(to right, #1e293b 1px, transparent 1px),
-    linear-gradient(to bottom, #1e293b 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: center top;
-}
-
-/* Overlay to fade out the grid at edges/bottom for that "spotlight" feel */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center top, transparent 0%, #040812 80%);
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* Ensure background stays fixed behind content */
 html {
-  background-color: #040812;
+  background-color: #050506;
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-  }
+body {
+  @apply bg-ink text-text antialiased font-sans;
+  font-feature-settings: 'cv11', 'ss01', 'tnum';
+  -webkit-font-smoothing: antialiased;
+}
 
-  .border-glow {
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 500px at 50% -10%, rgba(59, 130, 246, 0.14), transparent 60%),
+    radial-gradient(700px 400px at 100% 100%, rgba(59, 130, 246, 0.05), transparent 60%);
+}
+
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Sliders */
+input[type='range'].slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+input[type='range'].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.15s ease;
+}
+input[type='range'].slider::-webkit-slider-thumb:hover,
+input[type='range'].slider:active::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+input[type='range'].slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+input[type='range'].slider::-moz-range-track {
+  background: transparent;
+}
+
+@layer components {
+  .card {
+    @apply rounded-3xl border border-line bg-panel shadow-card;
+  }
+  .label {
+    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-dim;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
   }
 }

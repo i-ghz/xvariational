@@ -6,22 +6,23 @@ export function Slider({ label, value, onChange, min, max, log = false, step, co
     const raw = log ? min * Math.pow(max / min, p) : min + p * (max - min)
     return step ? Math.round(raw / step) * step : raw
   }
-  const pos = toPos(value)
+  const pos = Math.min(1, Math.max(0, toPos(value)))
   const band = consensus ? [toPos(consensus[0]) * 100, toPos(consensus[1]) * 100] : null
   const edge = formatEdge || format
 
   return (
     <div>
-      <div className="flex items-baseline justify-between mb-3">
-        <span className="text-[15px] font-medium text-text">{label}</span>
-        <span className="num text-[17px] font-semibold text-accent">{format(value)}</span>
+      <div className="flex items-baseline justify-between mb-2.5 gap-4">
+        <span className="text-[13.5px] font-medium">{label}</span>
+        <span className="num text-[15px] font-semibold tracking-[-0.02em]">{format(value)}</span>
       </div>
+
       <div className="relative h-5 flex items-center">
-        <div className="absolute inset-x-0 h-1 rounded-full bg-white/10" />
+        <div className="absolute inset-x-0 h-1.5 rounded-full bg-line" />
         {band && (
-          <div className="absolute h-1 rounded-full bg-up/60" style={{ left: `${band[0]}%`, width: `${band[1] - band[0]}%` }} />
+          <div className="absolute h-1.5 bg-up/30" style={{ left: `${band[0]}%`, width: `${band[1] - band[0]}%` }} />
         )}
-        <div className="absolute h-1 rounded-full bg-accent" style={{ left: 0, width: `${pos * 100}%` }} />
+        <div className="absolute h-1.5 rounded-full bg-accent" style={{ width: `${pos * 100}%` }} />
         <input
           type="range"
           className="slider relative z-10"
@@ -32,11 +33,10 @@ export function Slider({ label, value, onChange, min, max, log = false, step, co
           aria-label={label}
         />
       </div>
-      <div className="flex justify-between mt-2 text-[12px] text-dim num">
+
+      <div className="flex justify-between mt-1.5 text-[11px] text-dim num">
         <span>{edge(min)}</span>
-        {consensus && (
-          <span className="text-up/90">consensus {edge(consensus[0])} – {edge(consensus[1])}</span>
-        )}
+        {consensus && <span className="text-up">consensus {edge(consensus[0])}–{edge(consensus[1])}</span>}
         <span>{edge(max)}</span>
       </div>
     </div>

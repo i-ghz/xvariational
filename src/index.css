@@ -3,44 +3,41 @@
 @tailwind utilities;
 
 html {
-  background-color: #050506;
-  color-scheme: dark;
+  background-color: #f7f8fa;
+  color-scheme: light;
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  @apply bg-ink text-text antialiased font-sans;
+  @apply bg-page text-ink antialiased font-sans;
   font-feature-settings: 'cv11', 'ss01', 'tnum';
   -webkit-font-smoothing: antialiased;
 }
 
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(900px 500px at 50% -10%, rgba(59, 130, 246, 0.14), transparent 60%),
-    radial-gradient(700px 400px at 100% 100%, rgba(59, 130, 246, 0.05), transparent 60%);
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 
 input[type='number']::-webkit-outer-spin-button,
-input[type='number']::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type='number'] {
-  -moz-appearance: textfield;
-}
+input[type='number']::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+input[type='number'] { -moz-appearance: textfield; }
+input[type='search']::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+::selection { background: #dbedfe; }
+
+.scroll-soft { scrollbar-width: thin; scrollbar-color: #ced5df transparent; }
+.scroll-soft::-webkit-scrollbar { width: 8px; height: 8px; }
+.scroll-soft::-webkit-scrollbar-thumb { background: #ced5df; border-radius: 999px; }
+.scroll-soft::-webkit-scrollbar-track { background: transparent; }
 
 /* Sliders */
 input[type='range'].slider {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 4px;
-  border-radius: 999px;
+  height: 20px;
   background: transparent;
   outline: none;
   cursor: pointer;
@@ -51,35 +48,35 @@ input[type='range'].slider::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.15s ease;
+  background: #fff;
+  border: 1px solid #ced5df;
+  box-shadow: 0 1px 3px rgba(21, 26, 37, 0.18);
+  transition: transform .18s cubic-bezier(.16,1,.3,1);
 }
 input[type='range'].slider::-webkit-slider-thumb:hover,
-input[type='range'].slider:active::-webkit-slider-thumb {
-  transform: scale(1.1);
-}
+input[type='range'].slider:active::-webkit-slider-thumb { transform: scale(1.12); }
+input[type='range'].slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(28, 91, 217, .25); }
 input[type='range'].slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 1px solid #ced5df;
+  box-shadow: 0 1px 3px rgba(21,26,37,.18);
 }
-input[type='range'].slider::-moz-range-track {
-  background: transparent;
-}
+input[type='range'].slider::-moz-range-track { background: transparent; }
 
 @layer components {
-  .card {
-    @apply rounded-3xl border border-line bg-panel shadow-card;
+  .card { @apply rounded-card border border-line bg-card shadow-card; }
+  .card-hover { @apply transition-[border-color,box-shadow,transform] duration-200 hover:border-line-2 hover:shadow-lift; }
+  .label { @apply text-[11px] font-semibold uppercase tracking-[0.08em] text-dim; }
+  .num { font-variant-numeric: tabular-nums; }
+  .pill { @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors; }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-accent px-5 py-2.5 text-[14px] font-semibold text-white
+           transition-[background-color,transform] duration-150 hover:bg-accent-2 active:scale-[.97];
   }
-  .label {
-    @apply text-[11px] font-medium uppercase tracking-[0.14em] text-dim;
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-line-2 bg-card px-5 py-2.5 text-[14px] font-medium text-ink
+           transition-colors hover:border-accent hover:text-accent;
   }
-  .num {
-    font-variant-numeric: tabular-nums;
-  }
+  .section-title { @apply text-[20px] md:text-[24px] font-semibold tracking-[-0.02em] leading-tight; }
+  .section-sub { @apply text-[13.5px] text-muted mt-1.5 leading-relaxed; }
+  .link-quiet { @apply text-accent font-medium hover:text-accent-2 transition-colors; }
 }

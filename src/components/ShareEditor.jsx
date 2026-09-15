@@ -3,12 +3,13 @@ import { Download, Copy, Check } from 'lucide-react'
 import html2canvas from 'html2canvas'
 import { clsx } from 'clsx'
 import { ShareCard } from './ShareCard'
+import { REF_CODE, omni } from '../lib/config'
 import { fmtInt, fmtUsd, fmtUsdCompact } from '../lib/format'
 
 const CAPTURE = { scale: 2, backgroundColor: null, useCORS: true, logging: false, width: 800, height: 418, windowWidth: 800, windowHeight: 418 }
 
 export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState('light')
   const [scale, setScale] = useState(0.5)
   const [copied, setCopied] = useState(false)
   const exportRef = useRef(null)
@@ -55,16 +56,16 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
   }
 
   const handleTweet = () => {
-    const text = `My Variational airdrop estimate 🪂\n\nPoints: ${fmtInt(userPoints)}\nAt ${fmtUsdCompact(fdv)} FDV: ${fmtUsd(result.value)}\n\nRun yours: xvariational.xyz @variational_io`
+    const text = `My Variational airdrop estimate 🪂\n\nPoints: ${fmtInt(userPoints)}\nAt ${fmtUsdCompact(fdv)} FDV: ${fmtUsd(result.value)}\n\nRun yours: xvariational.xyz\nStart farming: ${omni()} (ref ${REF_CODE}) @variational_io`
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank')
   }
 
   return (
-    <section id="share" className="card overflow-hidden">
+    <section className="card overflow-hidden">
       <div className="flex flex-col lg:flex-row">
-        <div ref={containerRef} className="flex-1 p-6 flex items-center justify-center min-h-[300px] bg-panel-2/60">
+        <div ref={containerRef} className="flex-1 p-6 flex items-center justify-center min-h-[300px] bg-sunken">
           <div style={{ width: 800 * scale, height: 418 * scale }} className="relative">
-            <div style={{ transform: `scale(${scale})` }} className="origin-top-left absolute top-0 left-0 rounded-3xl shadow-2xl">
+            <div style={{ transform: `scale(${scale})` }} className="origin-top-left absolute top-0 left-0 rounded-card shadow-lift">
               <ShareCard points={userPoints} fdv={fdv} share={share} totalPoints={totalPoints} result={result} theme={theme} isPreview />
             </div>
           </div>
@@ -76,20 +77,20 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
           </div>
         </div>
 
-        <div className="w-full lg:w-72 border-t lg:border-t-0 lg:border-l border-line p-6 flex flex-col gap-6">
+        <div className="w-full lg:w-72 border-t lg:border-t-0 lg:border-l border-line p-5 flex flex-col gap-5">
           <div>
-            <h2 className="text-[17px] font-semibold tracking-tight">Share your estimate</h2>
-            <p className="text-[13px] text-muted mt-1">A card with your current assumptions.</p>
+            <h2 className="text-[16px] font-semibold tracking-[-0.02em]">Share your estimate</h2>
+            <p className="text-[12.5px] text-muted mt-0.5">A card with your current assumptions.</p>
           </div>
 
           <div>
             <div className="label mb-3">Appearance</div>
-            <div className="flex gap-2 p-1 rounded-full bg-panel-2 border border-line">
+            <div className="flex gap-2 p-1 rounded-full bg-sunken border border-line">
               {['dark', 'light'].map((t) => (
                 <button
                   key={t}
                   onClick={() => setTheme(t)}
-                  className={clsx('flex-1 py-1.5 rounded-full text-[13px] font-medium capitalize transition-colors', theme === t ? 'bg-text text-ink' : 'text-muted hover:text-text')}
+                  className={clsx('flex-1 py-1.5 rounded-full text-[13px] font-medium capitalize transition-colors', theme === t ? 'bg-accent text-white' : 'text-muted hover:text-ink')}
                 >
                   {t}
                 </button>
@@ -101,7 +102,7 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
             <button
               onClick={handleTweet}
               disabled={!enabled}
-              className="w-full py-3 rounded-2xl bg-text text-ink font-semibold text-[14px] flex items-center justify-center gap-2 hover:bg-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full py-3 rounded-inner bg-ink text-white font-semibold text-[13.5px] flex items-center justify-center gap-2 hover:bg-ink/85 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -112,7 +113,7 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
               <button
                 onClick={handleCopy}
                 disabled={!enabled}
-                className={clsx('py-3 rounded-2xl text-[14px] font-medium flex items-center justify-center gap-2 border border-line transition-colors disabled:opacity-40 disabled:cursor-not-allowed', copied ? 'bg-up/15 text-up border-up/30' : 'bg-panel-2 hover:bg-white/5')}
+                className={clsx('py-3 rounded-inner text-[13.5px] font-medium flex items-center justify-center gap-2 border border-line transition-colors disabled:opacity-40 disabled:cursor-not-allowed', copied ? 'bg-up-soft text-up border-up/30' : 'bg-card hover:bg-sunken')}
               >
                 {copied ? <Check size={15} /> : <Copy size={15} />}
                 {copied ? 'Copied' : 'Copy'}
@@ -120,12 +121,12 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
               <button
                 onClick={handleDownload}
                 disabled={!enabled}
-                className="py-3 rounded-2xl text-[14px] font-medium flex items-center justify-center gap-2 bg-panel-2 border border-line hover:bg-white/5 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="py-3 rounded-inner text-[13.5px] font-medium flex items-center justify-center gap-2 bg-card border border-line hover:bg-sunken transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <Download size={15} /> Save
               </button>
             </div>
-            {!enabled && <p className="text-[12px] text-dim text-center">Enter your points to enable sharing.</p>}
+            {!enabled && <p className="text-[11.5px] text-dim text-center">Enter your points to enable sharing.</p>}
           </div>
         </div>
       </div>

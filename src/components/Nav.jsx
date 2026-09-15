@@ -1,26 +1,44 @@
+import { NavLink } from 'react-router-dom'
+import { clsx } from 'clsx'
+import { TradeLink } from './TradeLink'
 import logo from '../assets/logo-new.png'
+
+const PAGES = [
+  { to: '/', label: 'Overview', end: true },
+  { to: '/markets', label: 'Markets' },
+]
 
 export function Nav() {
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-xl bg-ink/60 border-b border-line">
-      <div className="mx-auto max-w-6xl px-5 md:px-8 h-14 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2.5">
+    <header className="sticky top-0 z-50 bg-page/85 backdrop-blur-xl border-b border-line">
+      <div className="mx-auto max-w-[1200px] px-4 md:px-7 h-14 flex items-center gap-4">
+        <NavLink to="/" className="flex items-center gap-2 shrink-0">
           <img src={logo} alt="" className="w-6 h-6 object-contain" />
-          <span className="text-[15px] font-semibold tracking-tight">xVariational</span>
-        </a>
-        <nav className="flex items-center gap-1 text-[13px]">
-          <a href="#simulator" className="hidden sm:block px-3 py-1.5 rounded-full text-muted hover:text-text transition-colors">Simulator</a>
-          <a href="#market" className="hidden sm:block px-3 py-1.5 rounded-full text-muted hover:text-text transition-colors">Market</a>
-          <a href="#share" className="hidden sm:block px-3 py-1.5 rounded-full text-muted hover:text-text transition-colors">Share</a>
-          <a
-            href="https://omni.variational.io/?ref=OMNIGHZ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-2 px-4 py-1.5 rounded-full bg-text text-ink font-medium hover:bg-white transition-colors"
-          >
-            Trade
-          </a>
+          <span className="text-[15px] font-semibold tracking-[-0.02em]">xVariational</span>
+        </NavLink>
+
+        <nav className="flex items-center gap-0.5 text-[13.5px] overflow-x-auto scroll-soft -mx-1 px-1">
+          {PAGES.map((p) => (
+            <NavLink
+              key={p.to}
+              to={p.to}
+              end={p.end}
+              className={({ isActive }) =>
+                clsx(
+                  'px-3 py-1.5 rounded-full whitespace-nowrap transition-colors',
+                  isActive ? 'bg-accent-soft text-accent font-medium' : 'text-muted hover:text-ink hover:bg-sunken',
+                )
+              }
+            >
+              {p.label}
+            </NavLink>
+          ))}
         </nav>
+
+        <TradeLink variant="primary" arrow className="ml-auto !px-4 !py-2 !text-[13.5px] shrink-0">
+          <span className="hidden sm:inline">Trade on Omni</span>
+          <span className="sm:hidden">Trade</span>
+        </TradeLink>
       </div>
     </header>
   )

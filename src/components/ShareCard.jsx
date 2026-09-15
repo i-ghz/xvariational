@@ -1,14 +1,15 @@
 import { forwardRef } from 'react'
 import logo from '../assets/logo-new.png'
+import { REF_CODE } from '../lib/config'
 import { fmtUsd, fmtUsd2, fmtUsdCompact, fmtPct, fmtCompact, fmtPoints } from '../lib/format'
 
 const THEMES = {
-  dark: { bg: '#050506', text: '#f5f5f7', muted: '#8b8b93', line: 'rgba(255,255,255,0.1)', panel: 'rgba(255,255,255,0.04)', accent: '#3B82F6', glow: 'rgba(59,130,246,0.25)' },
-  light: { bg: '#f5f5f7', text: '#1d1d1f', muted: '#6e6e73', line: 'rgba(0,0,0,0.1)', panel: 'rgba(0,0,0,0.035)', accent: '#2563eb', glow: 'rgba(37,99,235,0.18)' },
+  light: { bg: '#ffffff', text: '#151a25', muted: '#6c829d', line: '#e9edf1', panel: '#f7f8fa', accent: '#1c5bd9', glow: 'rgba(28,91,217,0.10)' },
+  dark: { bg: '#010612', text: '#e9edf1', muted: '#a0aec0', line: 'rgba(255,255,255,0.10)', panel: 'rgba(255,255,255,0.04)', accent: '#4c9af8', glow: 'rgba(76,154,248,0.22)' },
 }
 
-export const ShareCard = forwardRef(({ points, fdv, share, totalPoints, result, theme = 'dark', isPreview = false }, ref) => {
-  const t = THEMES[theme] || THEMES.dark
+export const ShareCard = forwardRef(({ points, fdv, share, totalPoints, result, theme = 'light', isPreview = false }, ref) => {
+  const t = THEMES[theme] || THEMES.light
   return (
     <div
       ref={ref}
@@ -64,7 +65,11 @@ export const ShareCard = forwardRef(({ points, fdv, share, totalPoints, result, 
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 11, color: t.muted, position: 'relative' }}>
         <span>Hypothetical. Nothing announced. Not financial advice.</span>
-        <span style={{ fontWeight: 600, color: t.text }}>xvariational.xyz</span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <span style={{ fontWeight: 600, color: t.text }}>xvariational.xyz</span>
+          <span style={{ opacity: 0.5 }}>·</span>
+          <span style={{ fontVariantNumeric: 'tabular-nums' }}>ref {REF_CODE}</span>
+        </span>
       </div>
     </div>
   )

@@ -1,9 +1,11 @@
-// Community assumptions. Nothing here is confirmed by Variational.
+// What is left to guess after the 2026-09-24 tokenomics announcement.
+// The genesis share (32%) and the 150k weekly drip are now facts and live in
+// lib/tokenomics.js; only these two are still open.
 // `probably` is the range people keep landing on — a band, not a promise.
 export const ASSUMPTIONS = {
   fdv: { min: 100e6, max: 5e9, default: 600e6, probably: [500e6, 2e9], log: true },
-  share: { min: 0.01, max: 0.6, default: 0.25, probably: [0.25, 0.3], step: 0.005 },
-  points: { min: 1e6, max: 30e6, default: 9.3e6, probably: [9e6, 9.4e6], step: 50_000 },
+  // ~9.3M in circulation plus 150k a week until the Q4 TGE lands here.
+  totalPoints: { min: 5e6, max: 25e6, default: 10.5e6, probably: [10e6, 11e6], step: 50_000 },
 }
 
 export const SCENARIOS = [100e6, 300e6, 600e6, 1e9, 2e9, 5e9]

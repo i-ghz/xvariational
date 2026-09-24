@@ -1,27 +1,30 @@
-import { useState } from 'react'
-import { ChevronDown, RotateCcw } from 'lucide-react'
+import { RotateCcw } from 'lucide-react'
 import { clsx } from 'clsx'
 import { Slider } from './Slider'
 import { TradeLink } from './TradeLink'
 import { ASSUMPTIONS, SCENARIOS } from '../lib/consensus'
-import { fmtUsd, fmtUsd2, fmtUsdCompact, fmtPct, fmtCompact, fmtPoints } from '../lib/format'
+import { TOKENOMICS, weeklyDilution } from '../lib/tokenomics'
+import { fmtUsd, fmtUsd2, fmtUsdCompact, fmtCompact, fmtPoints, fmtInt } from '../lib/format'
 
-/** The whole point of the home page: type your points, see a number. */
+/**
+ * With the 32% genesis share announced, the price at TGE is the only thing left
+ * that really moves the answer — so it leads, and the rest gets out of its way.
+ */
 export function PointsCalculator({ sim }) {
-  const [open, setOpen] = useState(false)
-  const {
-    points, setPoints, fdv, setFdv, share, setShare,
-    totalPoints, setTotalPoints, userPoints, result, reset,
-  } = sim
+  const { points, setPoints, fdv, setFdv, totalPoints, setTotalPoints, share, userPoints, result, reset } = sim
   const has = userPoints > 0
+  const dilution = weeklyDilution(userPoints, totalPoints)
   const targets = [1_000, 10_000, 100_000]
 
   return (
     <section className="card overflow-hidden">
-      <div className="px-5 md:px-6 py-4 border-b border-line flex items-center justify-between gap-3">
-        <div>
+      <div className="px-5 md:px-6 py-4 border-b border-line flex items-start justify-between gap-3">
+        <div className="min-w-0">
           <h2 className="section-title">What are your points worth?</h2>
-          <p className="section-sub">Nothing is announced. Move the numbers and see for yourself.</p>
+          <p className="section-sub">
+            <span className="text-ink font-medium">{Math.round(share * 100)}% of supply</span> goes to
+            points — announced, fully unlocked at TGE. The price is the open question.
+          </p>
         </div>
         <button
           onClick={reset}
@@ -80,31 +83,18 @@ export function PointsCalculator({ sim }) {
             })}
           </div>
 
-          <div className="border-t border-line pt-4">
-            <button
-              onClick={() => setOpen((o) => !o)}
-              aria-expanded={open}
-              className="flex items-center gap-1.5 text-[12.5px] font-medium text-muted hover:text-accent transition-colors"
-            >
-              <ChevronDown size={14} className={clsx('transition-transform', open && 'rotate-180')} />
-              {open ? 'Hide' : 'More'} assumptions
-            </button>
-
-            {open && (
-              <div className="flex flex-col gap-5 mt-4">
-                <Slider
-                  label="Share of supply to points" value={share} onChange={setShare}
-                  min={ASSUMPTIONS.share.min} max={ASSUMPTIONS.share.max} step={ASSUMPTIONS.share.step}
-                  probably={ASSUMPTIONS.share.probably} format={(v) => fmtPct(v, 1)}
-                />
-                <Slider
-                  label="Total points at TGE" value={totalPoints} onChange={setTotalPoints}
-                  min={ASSUMPTIONS.points.min} max={ASSUMPTIONS.points.max} step={ASSUMPTIONS.points.step}
-                  probably={ASSUMPTIONS.points.probably}
-                  format={(v) => fmtCompact(v, { decimals: 2 })} formatEdge={(v) => fmtCompact(v, { decimals: 1 })}
-                />
-              </div>
-            )}
+          <div className="border-t border-line pt-5">
+            <Slider
+              label="Points in existence at TGE" value={totalPoints} onChange={setTotalPoints}
+              min={ASSUMPTIONS.totalPoints.min} max={ASSUMPTIONS.totalPoints.max}
+              step={ASSUMPTIONS.totalPoints.step} probably={ASSUMPTIONS.totalPoints.probably}
+              format={(v) => fmtCompact(v, { decimals: 2 })} formatEdge={(v) => fmtCompact(v, { decimals: 0 })}
+            />
+            <p className="text-[11.5px] text-dim leading-relaxed mt-2.5">
+              {fmtInt(TOKENOMICS.weeklyPoints)} points drop every week until the {TOKENOMICS.tgeQuarter} TGE,
+              which lands the final supply somewhere around{' '}
+              {fmtCompact(ASSUMPTIONS.totalPoints.probably[0])}–{fmtCompact(ASSUMPTIONS.totalPoints.probably[1])}.
+            </p>
           </div>
         </div>
 
@@ -127,15 +117,20 @@ export function PointsCalculator({ sim }) {
               <div className="num text-[17px] font-semibold tracking-[-0.02em]">{fmtUsd2(result.perPoint)}</div>
             </div>
             <div className="rounded-inner border border-line px-4 py-3.5">
-              <div className="label mb-1.5">Your share</div>
-              <div className="num text-[17px] font-semibold tracking-[-0.02em]">
-                {has ? `${(result.userShare * 100).toFixed(4)}%` : '—'}
-              </div>
+              <div className="label mb-1.5">Genesis pool</div>
+              <div className="num text-[17px] font-semibold tracking-[-0.02em]">{fmtUsdCompact(result.pool)}</div>
             </div>
           </div>
 
           <div className="rounded-inner border border-line px-4 py-3.5">
-            <div className="label mb-2">Points needed for</div>
+            <div className="flex items-baseline justify-between mb-2">
+              <span className="label">Points needed for</span>
+              {has && (
+                <span className="num text-[11.5px] text-dim">
+                  your share {(result.userShare * 100).toFixed(4)}%
+                </span>
+              )}
+            </div>
             <div className="divide-y divide-line">
               {targets.map((t) => (
                 <div key={t} className="flex items-center justify-between py-1.5 text-[12.5px] num">
@@ -146,10 +141,16 @@ export function PointsCalculator({ sim }) {
             </div>
           </div>
 
-          <p className="text-[11.5px] text-dim leading-relaxed mt-auto">
-            Assumes {(share * 100).toFixed(1)}% of supply to points, split across{' '}
-            {fmtCompact(totalPoints)} points. Every number here is a community guess.
-          </p>
+          {dilution > 0 && (
+            <p className="text-[11.5px] leading-relaxed rounded-inner bg-sunken px-3.5 py-2.5 mt-auto">
+              <span className="text-ink font-medium">
+                Every week you sit out costs you {(dilution * 100).toFixed(2)}% of your share
+              </span>
+              <span className="text-muted">
+                {' '}— {fmtInt(TOKENOMICS.weeklyPoints)} new points join the pool whether you farm or not.
+              </span>
+            </p>
+          )}
         </div>
       </div>
     </section>

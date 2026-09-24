@@ -9,6 +9,7 @@ import { MarketsPage } from './pages/MarketsPage'
 import { useVariationalStats } from './hooks/useVariationalStats'
 import { usePolymarket } from './hooks/usePolymarket'
 import { ASSUMPTIONS, payout } from './lib/consensus'
+import { TOKENOMICS } from './lib/tokenomics'
 
 const STORAGE_KEY = 'xv-points'
 
@@ -26,8 +27,7 @@ export default function App() {
     try { return localStorage.getItem(STORAGE_KEY) || '' } catch { return '' }
   })
   const [fdv, setFdv] = useState(ASSUMPTIONS.fdv.default)
-  const [share, setShare] = useState(ASSUMPTIONS.share.default)
-  const [totalPoints, setTotalPoints] = useState(ASSUMPTIONS.points.default)
+  const [totalPoints, setTotalPoints] = useState(ASSUMPTIONS.totalPoints.default)
 
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, points) } catch { /* private mode */ }
@@ -37,6 +37,7 @@ export default function App() {
   const market = usePolymarket()
 
   const userPoints = Math.max(0, parseFloat(points) || 0)
+  const share = TOKENOMICS.genesisShare // announced, not a guess
   const result = useMemo(
     () => payout({ userPoints, fdv, share, totalPoints }),
     [userPoints, fdv, share, totalPoints],
@@ -44,15 +45,14 @@ export default function App() {
 
   const reset = () => {
     setFdv(ASSUMPTIONS.fdv.default)
-    setShare(ASSUMPTIONS.share.default)
-    setTotalPoints(ASSUMPTIONS.points.default)
+    setTotalPoints(ASSUMPTIONS.totalPoints.default)
   }
 
   const sim = {
     points, setPoints,
     fdv, setFdv,
-    share, setShare,
     totalPoints, setTotalPoints,
+    share,
     userPoints, result, reset,
   }
 

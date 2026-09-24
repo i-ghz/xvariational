@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Markets } from '../components/Markets'
 import { StatsStrip } from '../components/StatsStrip'
+import { VenueHeartbeat } from '../components/charts/VenueHeartbeat'
 import { CompositionChart } from '../components/charts/CompositionChart'
 import { ConcentrationChart } from '../components/charts/ConcentrationChart'
 import { FundingHistogram } from '../components/charts/FundingHistogram'
@@ -41,6 +42,8 @@ export function MarketsPage({ stats }) {
         updatedAt={stats.updatedAt}
         onRefresh={stats.refresh}
       />
+
+      <VenueHeartbeat stats={stats.data} prev={stats.prev} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
         <CompositionChart data={derived.composition} />

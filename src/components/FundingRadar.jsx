@@ -1,6 +1,7 @@
 import { TrendingUp, TrendingDown } from 'lucide-react'
 import { TradeLink } from './TradeLink'
 import { Badge } from './Markets'
+import { FundingClock } from './FundingClock'
 import { fmtUsdCompact, fmtSignedPct } from '../lib/format'
 
 export function FundingSide({ title, note, icon, tone, rows, compact = false }) {
@@ -31,7 +32,11 @@ export function FundingSide({ title, note, icon, tone, rows, compact = false }) 
               </div>
               <div className="text-right shrink-0">
                 <div className={`num text-[14px] font-semibold ${tone}`}>{fmtSignedPct(m.fundingApr)}</div>
-                <div className="num text-[11px] text-dim">OI {fmtUsdCompact(m.oi, 1)}</div>
+                <div className="num text-[11px] text-dim flex items-center gap-1.5 justify-end">
+                  <span>OI {fmtUsdCompact(m.oi, 1)}</span>
+                  <span aria-hidden>·</span>
+                  <FundingClock intervalSeconds={m.fundingIntervalS} />
+                </div>
               </div>
             </TradeLink>
           ))

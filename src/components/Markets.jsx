@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Search, ArrowUpRight, ChevronDown } from 'lucide-react'
 import { clsx } from 'clsx'
 import { TradeLink } from './TradeLink'
+import { FundingClock } from './FundingClock'
 import { CATEGORIES, SORTS, filterMarkets, sortDir } from '../lib/markets'
 import { fmtUsdCompact, fmtPrice, fmtSignedPct, fmtInterval } from '../lib/format'
 
@@ -49,8 +50,9 @@ function Row({ m }) {
       <div className="num text-[13.5px] font-medium text-right md:text-left">{fmtPrice(m.price)}</div>
       <div className="num text-[13px] text-muted hidden md:block">{fmtUsdCompact(m.volume24h, 1)}</div>
       <div className="num text-[13px] text-muted hidden md:block">{fmtUsdCompact(m.oi, 1)}</div>
-      <div className="num text-[13px] font-medium hidden md:block">
+      <div className="num text-[13px] font-medium hidden md:flex items-baseline gap-2">
         <Funding value={m.fundingApr} interval={m.fundingIntervalS} />
+        <FundingClock intervalSeconds={m.fundingIntervalS} className="!text-[10.5px]" />
       </div>
 
       <div className="col-span-2 md:col-span-1 flex md:justify-end items-center gap-3">
@@ -138,7 +140,7 @@ export function Markets({ listings = [], loading }) {
           <span>Price</span>
           <span>24h volume</span>
           <span>Open interest</span>
-          <span>Funding (APR)</span>
+          <span>Funding (APR) · next</span>
           <span className="w-4" />
         </div>
 

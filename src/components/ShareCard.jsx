@@ -53,7 +53,7 @@ export const ShareCard = forwardRef(({ points, fdv, share, totalPoints, result, 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, position: 'relative' }}>
         {[
           ['Value per point', fmtUsd2(result.perPoint)],
-          ['Airdrop pool', `${fmtUsdCompact(result.pool)} · ${fmtPct(share, 1)}`],
+          ['Genesis pool', `${fmtUsdCompact(result.pool)} · ${fmtPct(share, 0)}`],
           ['Total points', fmtCompact(totalPoints)],
         ].map(([k, v]) => (
           <div key={k} style={{ background: t.panel, border: `1px solid ${t.line}`, borderRadius: 14, padding: '12px 16px' }}>
@@ -64,7 +64,7 @@ export const ShareCard = forwardRef(({ points, fdv, share, totalPoints, result, 
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', fontSize: 11, color: t.muted, position: 'relative' }}>
-        <span>Hypothetical. Nothing announced. Not financial advice.</span>
+        <span>32% genesis share is announced; the price is not. Not financial advice.</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontWeight: 600, color: t.text }}>xvariational.xyz</span>
           <span style={{ opacity: 0.5 }}>·</span>

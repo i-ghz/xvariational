@@ -39,9 +39,10 @@ export function Footer() {
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 text-[12px] text-dim">
           <p className="max-w-2xl leading-relaxed">
-            Market data comes from Variational&apos;s public read-only API. Every airdrop number here is
-            a community assumption or a prediction-market price — nothing has been announced. Links to
-            Omni carry a referral code. Not affiliated with Variational. Not financial advice.
+            Market data comes from Variational&apos;s public read-only API. The 32% genesis share, the
+            150k weekly points and the Q4 2026 TGE are announced by Variational; the token price at
+            TGE is not, so every payout here is an estimate. Links to Omni carry a referral code.
+            Not affiliated with Variational. Not financial advice.
           </p>
           <div className="flex items-center gap-4 shrink-0">
             <a href={LINKS.docs} target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors">API docs</a>

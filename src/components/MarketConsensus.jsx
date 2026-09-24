@@ -79,7 +79,7 @@ export function MarketConsensus({ market, userPoints, share, totalPoints, onPick
         </div>
       </div>
       <p className="px-5 md:px-6 py-3 text-[11.5px] text-dim border-t border-line">
-        Tap a row to set that FDV in the simulator. Payouts use your current share and total-points assumptions.
+        Tap a row to set that FDV in the simulator. Payouts use the announced 32% genesis share and your projected total points.
       </p>
     </section>
   )

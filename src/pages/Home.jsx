@@ -4,6 +4,9 @@ import { ArrowRight } from 'lucide-react'
 import { StatsStrip } from '../components/StatsStrip'
 import { SessionFeed } from '../components/SessionFeed'
 import { PointsCalculator } from '../components/PointsCalculator'
+import { PointsProjection } from '../components/PointsProjection'
+import { BronzeOffer } from '../components/BronzeOffer'
+import { HowItsCalculated } from '../components/HowItsCalculated'
 import { EarnMore } from '../components/EarnMore'
 import { TokenomicsPanel } from '../components/TokenomicsPanel'
 import { MarketConsensus } from '../components/MarketConsensus'
@@ -32,14 +35,20 @@ export function Home({ stats, sim, market }) {
         onRefresh={stats.refresh}
       />
 
+      <BronzeOffer />
+
       <SessionFeed stats={stats.data} prev={stats.prev} sessionStart={stats.sessionStart} />
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1.45fr_1fr] gap-4 items-start">
-        <PointsCalculator sim={sim} />
-        <EarnMore />
-      </div>
+      <PointsCalculator sim={sim} />
 
-      <TokenomicsPanel />
+      <PointsProjection sim={sim} />
+
+      <HowItsCalculated />
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-4 items-start">
+        <EarnMore />
+        <TokenomicsPanel />
+      </div>
 
       <MarketConsensus
         market={market}

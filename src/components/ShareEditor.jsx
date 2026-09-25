@@ -116,14 +116,14 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
                 className={clsx('py-3 rounded-inner text-[13.5px] font-medium flex items-center justify-center gap-2 border border-line transition-colors disabled:opacity-40 disabled:cursor-not-allowed', copied ? 'bg-up-soft text-up border-up/30' : 'bg-card hover:bg-sunken')}
               >
                 {copied ? <Check size={15} /> : <Copy size={15} />}
-                {copied ? 'Copied' : 'Copy'}
+                {copied ? 'Image copied' : 'Copy image'}
               </button>
               <button
                 onClick={handleDownload}
                 disabled={!enabled}
                 className="py-3 rounded-inner text-[13.5px] font-medium flex items-center justify-center gap-2 bg-card border border-line hover:bg-sunken transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                <Download size={15} /> Save
+                <Download size={15} /> Save image
               </button>
             </div>
             {!enabled && <p className="text-[11.5px] text-dim text-center">Enter your points to enable sharing.</p>}

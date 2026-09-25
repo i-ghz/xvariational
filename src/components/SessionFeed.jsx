@@ -59,12 +59,9 @@ export function SessionFeed({ stats, prev, sessionStart }) {
         </span>
       </div>
 
-      <ul className="divide-y divide-line min-h-[120px]">
-        {events.length === 0 && (
-          <li className="px-5 py-8 text-center text-[12.5px] text-dim">
-            Watching the tape. Omni's numbers refresh every minute or two — whatever moves lands here.
-          </li>
-        )}
+      {/* Collapsed to the header row until there is something to say, so it never
+          pushes the things that matter down an empty box. */}
+      <ul className={events.length ? 'divide-y divide-line' : 'hidden'}>
         {events.map((e) => (
           <li key={e.id} className="px-5 py-2.5 flex items-center gap-3 animate-rise">
             <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${TONE[e.tone] || 'bg-dim'}`} />

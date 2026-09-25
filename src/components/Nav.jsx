@@ -36,8 +36,9 @@ export function Nav() {
         </nav>
 
         <TradeLink variant="primary" arrow className="ml-auto !px-4 !py-2 !text-[13.5px] shrink-0">
-          <span className="hidden sm:inline">Trade on Omni</span>
-          <span className="sm:hidden">Trade</span>
+          <span className="hidden md:inline">Join with free Bronze</span>
+          <span className="hidden sm:inline md:hidden">Free Bronze</span>
+          <span className="sm:hidden">Join</span>
         </TradeLink>
       </div>
     </header>

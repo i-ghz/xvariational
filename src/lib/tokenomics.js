@@ -10,6 +10,20 @@ export const TOKENOMICS = {
   weeklyPoints: 150_000,
   minPointsToClaim: 1,
 
+  /** Boost to points earned, unlocked by 30-day volume (docs.variational.io). */
+  tiers: [
+    { id: 'iron', label: 'Iron', volume: 0, boost: 0 },
+    { id: 'bronze', label: 'Bronze', volume: 1e6, boost: 0.005 },
+    { id: 'silver', label: 'Silver', volume: 5e6, boost: 0.01 },
+    { id: 'gold', label: 'Gold', volume: 25e6, boost: 0.02 },
+    { id: 'platinum', label: 'Platinum', volume: 100e6, boost: 0.03 },
+    { id: 'diamond', label: 'Diamond', volume: 750e6, boost: 0.04 },
+    { id: 'infinity', label: 'Infinity', volume: 2.5e9, boost: 0.05 },
+  ],
+
+  /** What the access code hands a new account outright. */
+  referralPerk: { tier: 'bronze', days: 90 },
+
   buckets: [
     { id: 'genesis', label: 'Genesis airdrop', share: 0.32, color: '#1c5bd9', note: 'To points holders. 100% unlocked at TGE.' },
     { id: 'ecosystem', label: 'Ecosystem reserve', share: 0.18, color: '#0d9488', note: "Held by the Variational Foundation." },

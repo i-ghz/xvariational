@@ -104,14 +104,14 @@ export function StatsShare({ stats, composition, concentration }) {
                 )}
               >
                 {copied ? <Check size={14} /> : <Copy size={14} />}
-                {copied ? 'Copied' : 'Copy'}
+                {copied ? 'Image copied' : 'Copy image'}
               </button>
               <button
                 onClick={handleDownload}
                 disabled={!ready}
                 className="py-2.5 rounded-inner text-[13px] font-medium flex items-center justify-center gap-1.5 bg-card border border-line hover:bg-sunken transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                <Download size={14} /> Save
+                <Download size={14} /> Save image
               </button>
             </div>
             {!ready && <p className="text-[11.5px] text-dim text-center">Waiting for live data…</p>}

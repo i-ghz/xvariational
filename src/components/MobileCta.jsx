@@ -20,8 +20,11 @@ export function MobileCta() {
         show ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <TradeLink variant="primary" arrow className="w-full !py-3 !text-[15px]">
-        Trade on Omni · code {REF_CODE}
+      <TradeLink variant="primary" arrow className="w-full !py-3 !text-[14.5px] flex-col !gap-0">
+        <span>Join Omni with free Bronze</span>
+        <span className="num text-[11px] font-normal opacity-80">
+          code {REF_CODE} · 90 days, +0.5% points
+        </span>
       </TradeLink>
     </div>
   )

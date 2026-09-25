@@ -51,7 +51,7 @@ export function EarnMore() {
               }`}
             >
               {copied === 'code' ? <Check size={13} /> : <Copy size={13} />}
-              {copied === 'code' ? 'Copied' : 'Copy'}
+              {copied === 'code' ? 'Code copied' : 'Copy access code'}
             </button>
           </div>
           <p className="text-[12.5px] text-ink/80 mt-3 pt-3 border-t border-accent/15 leading-relaxed">
@@ -94,7 +94,7 @@ export function EarnMore() {
           onClick={() => copy('link', omni())}
           className={`text-[12px] mt-auto transition-colors ${copied === 'link' ? 'text-up' : 'text-dim hover:text-accent'}`}
         >
-          {copied === 'link' ? 'Invite link copied' : 'or copy the invite link'}
+          {copied === 'link' ? 'Referral link copied' : 'or copy the referral link'}
         </button>
       </div>
     </section>

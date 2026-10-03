@@ -7,4 +7,4 @@ rsync -az --delete --exclude node_modules --exclude .env --exclude docker-compos
   "$HERE/" vpstotal:/opt/xvariational/
 ssh vpstotal 'cd /opt/xvariational && docker compose up -d --build --remove-orphans && docker compose ps'
 sleep 3
-curl -sf https://api.ghzcreative.ai/xvariational/health && echo && echo "==> OK"
+curl -sf https://api.xvariational.xyz/health && echo && echo "==> OK"

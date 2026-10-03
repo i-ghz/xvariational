@@ -32,3 +32,7 @@ export const LINKS = {
 
 export const STATS_ENDPOINT =
   'https://omni-client-api.prod.ap-northeast-1.variational.io/metadata/stats'
+
+// Our own tiny backend on vpstotal (see server/README.md). Polls Polymarket, which is
+// geo-blocked for part of the audience, and serves the cached odds.
+export const API_BASE = import.meta.env.VITE_API_BASE || 'https://api.ghzcreative.ai/xvariational'

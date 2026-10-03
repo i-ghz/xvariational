@@ -15,18 +15,22 @@ export const SCENARIOS = [100e6, 300e6, 600e6, 1e9, 2e9, 5e9]
 export const POLYMARKET_EVENT = {
   slug: 'variational-fdv-above-one-day-after-launch',
   url: 'https://polymarket.com/event/variational-fdv-above-one-day-after-launch',
-  snapshotDate: '2026-09-15',
-  volume: 2_474_702,
+  snapshotDate: '2026-10-03',
+  volume: 3_169_300,
   endDate: '2027-12-31',
 }
 
 export const POLYMARKET_SNAPSHOT = [
-  { fdv: 100e6, yes: 0.99, volume: 59_133 },
-  { fdv: 200e6, yes: 0.98, volume: 55_788 },
-  { fdv: 300e6, yes: 0.95, volume: 249_979 },
-  { fdv: 500e6, yes: 0.86, volume: 863_620 },
-  { fdv: 800e6, yes: 0.71, volume: 365_309 },
-  { fdv: 1e9, yes: 0.61, volume: 366_914 },
+  { fdv: 100e6, yes: 0.995, volume: 81_181 },
+  { fdv: 200e6, yes: 0.972, volume: 77_030 },
+  { fdv: 300e6, yes: 0.949, volume: 268_036 },
+  { fdv: 500e6, yes: 0.835, volume: 951_475 },
+  { fdv: 800e6, yes: 0.705, volume: 461_755 },
+  { fdv: 1e9, yes: 0.605, volume: 629_367 },
+  { fdv: 2e9, yes: 0.32, volume: 316_423 },
+  { fdv: 3e9, yes: 0.1, volume: 131_891 },
+  { fdv: 4e9, yes: 0.054, volume: 161_455 },
+  { fdv: 5e9, yes: 0.045, volume: 90_687 },
 ]
 
 export function payout({ userPoints, fdv, share, totalPoints }) {

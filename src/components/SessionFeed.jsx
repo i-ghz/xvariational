@@ -14,7 +14,7 @@ function since(start) {
 
 const TONE = {
   accent: 'bg-accent',
-  pay: 'bg-[#c2255c]',
+  pay: 'bg-[#e0557f]',
   collect: 'bg-accent',
 }
 

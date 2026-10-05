@@ -1,10 +1,10 @@
 // Chart constants and hooks live apart from the components so fast-refresh works.
 import { useState } from 'react'
 
-export const SURFACE = '#ffffff'
-export const GRID = '#e9edf1'
-export const AXIS_TEXT = '#a0aec0'
-export const INK = '#151a25'
+export const SURFACE = '#0b101b'
+export const GRID = '#1a2231'
+export const AXIS_TEXT = '#6c829d'
+export const INK = '#e9edf1'
 
 export function useHover() {
   const [hover, setHover] = useState(null)

@@ -9,7 +9,7 @@ import { fmtInt, fmtUsd, fmtUsdCompact } from '../lib/format'
 const CAPTURE = { scale: 2, backgroundColor: null, useCORS: true, logging: false, width: 800, height: 418, windowWidth: 800, windowHeight: 418 }
 
 export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('dark')
   const [scale, setScale] = useState(0.5)
   const [copied, setCopied] = useState(false)
   const exportRef = useRef(null)
@@ -90,7 +90,7 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
                 <button
                   key={t}
                   onClick={() => setTheme(t)}
-                  className={clsx('flex-1 py-1.5 rounded-full text-[13px] font-medium capitalize transition-colors', theme === t ? 'bg-accent text-white' : 'text-muted hover:text-ink')}
+                  className={clsx('flex-1 py-1.5 rounded-full text-[13px] font-medium capitalize transition-colors', theme === t ? 'bg-accent text-page' : 'text-muted hover:text-ink')}
                 >
                   {t}
                 </button>
@@ -102,7 +102,7 @@ export function ShareEditor({ userPoints, fdv, share, totalPoints, result }) {
             <button
               onClick={handleTweet}
               disabled={!enabled}
-              className="w-full py-3 rounded-inner bg-ink text-white font-semibold text-[13.5px] flex items-center justify-center gap-2 hover:bg-ink/85 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full py-3 rounded-inner bg-ink text-page font-semibold text-[13.5px] flex items-center justify-center gap-2 hover:bg-ink/85 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current" aria-hidden="true">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />

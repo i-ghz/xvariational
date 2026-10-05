@@ -93,7 +93,7 @@ export function Markets({ listings = [], loading }) {
               className={clsx(
                 'pill border',
                 category === c.id
-                  ? 'bg-accent text-white border-accent'
+                  ? 'bg-accent text-page border-accent'
                   : 'border-line bg-card text-muted hover:border-accent hover:text-accent',
               )}
             >

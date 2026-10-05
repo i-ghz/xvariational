@@ -87,7 +87,7 @@ export function PointsProjection({ sim }) {
                     className={clsx(
                       'pill border !text-[12px] !px-2.5 !py-1',
                       tier === id
-                        ? 'bg-accent text-white border-accent'
+                        ? 'bg-accent text-page border-accent'
                         : 'border-line text-muted hover:border-accent hover:text-accent',
                     )}
                   >

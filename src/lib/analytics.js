@@ -10,7 +10,7 @@ export const ASSET_CLASSES = [
 ]
 
 // Diverging pair for polarity. Warm = paying, cool = collecting.
-export const POLARITY = { pay: '#c2255c', collect: '#1c5bd9', neutral: '#a0aec0' }
+export const POLARITY = { pay: '#e0557f', collect: '#4c9af8', neutral: '#55677c' }
 
 const sum = (xs, f) => xs.reduce((a, x) => a + f(x), 0)
 

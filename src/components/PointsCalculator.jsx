@@ -74,7 +74,7 @@ export function PointsCalculator({ sim }) {
                   onClick={() => setFdv(s)}
                   className={clsx(
                     'pill border !text-[12px] !px-2.5 !py-1 num',
-                    active ? 'bg-accent text-white border-accent' : 'border-line text-muted hover:border-accent hover:text-accent',
+                    active ? 'bg-accent text-page border-accent' : 'border-line text-muted hover:border-accent hover:text-accent',
                   )}
                 >
                   {fmtUsdCompact(s, 0)}

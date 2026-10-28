@@ -11,3 +11,5 @@ It exists because Polymarket's API is geo-blocked for part of the audience: the 
 | `GET /polymarket/history/:fdv` | `[timestamp, yesPrice]` points, 10-minute step, 8 days |
 
 Deploy: `./server/deploy.sh`. Data persists in `/opt/xvariational/data/polymarket.json`.
+
+Déployé automatiquement par `ghz-autodeploy` sur vpstotal après une fusion validée sur GitHub.
